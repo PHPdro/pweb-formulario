@@ -1,0 +1,94 @@
+table, td, tr{
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 18px;
+  }
+  
+  table.result {
+    text-align: center;
+  }
+  
+  label {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+  
+  td.input{
+    text-align: left;
+  }
+  
+  td.title{
+    text-align: right;
+  }
+  
+  th {
+    text-align: left;
+  }
+  
+  table {
+    border:1px solid black;
+    width: 60%;
+  }
+  
+  h1, h2{
+    text-align: center;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  h3 {
+    margin-top: 1px;
+    font-size: 22px;
+    margin-left: 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  
+  button{
+    margin: 2px;
+    width: 125px;
+    display: center;
+  }
+  
+  #serie{
+    border-radius: 5px;
+    padding: 40px;
+    width: 120%;
+  }
+  
+  #turno{
+    border-radius: 5px;
+    padding: 5px;
+    margin-right: 100px;
+  }
+  
+  #atividadesExtra{
+    border-radius: 5px;
+    
+    padding: 5px;
+    text-align: left;
+  }
+  
+  input[type=text],
+  [type=tel],
+  [type=email],
+  [type=date],
+  select {
+    width: 50%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+  }
+  
+  #ddd{
+    width: 5%;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    margin-right: 5px;
+  }
+  
+  #botoes {
+    margin-top: 10px;
+    text-align: center;
+  }
+  

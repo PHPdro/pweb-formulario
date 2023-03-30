@@ -4,9 +4,17 @@ table, td, tr{
     margin-right: auto;
     font-size: 18px;
   }
+
+  p.error {
+    color:red;
+  }
   
   table.result {
     text-align: center;
+  }
+  
+  table.cadastros {
+    width: 100%;
   }
   
   label {

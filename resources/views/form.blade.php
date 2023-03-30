@@ -17,27 +17,27 @@
         </tr>
         <tr>
             <td class="title"><label>Nome do Aluno:</label></td>
-            <td class="input"><input type="text" name="nome_aluno"></td>
+            <td class="input"><input type="text" name="nome_aluno" value="{{$nome}}"></td>
         </tr>
         <tr>
             <td class="title"><label>Nascimento:</label></td>
-            <td class="input"><input type="date" name="nascimento_aluno"></td>
+            <td class="input"><input type="date" name="nascimento_aluno" value="{{$data}}"></td>
         </tr>
         <tr>
             <td class="title"><label>Nome da Mãe:</label></td>
-            <td class="input"><input type="text" name="nome_mae"></td>
+            <td class="input"><input type="text" name="nome_mae" value="{{$mae}}"></td>
         </tr>
         <tr>
             <td class="title"><label>Nome do pai:</label></td>
-            <td class="input"><input type="text" name="nome_pai"></td>
+            <td class="input"><input type="text" name="nome_pai" value="{{$pai}}"></td>
         </tr>
         <tr>
-            <td class="title"><label>Telefone:</label> <input type="text" name="ddd" id="ddd" maxlength="2"> </td>
-            <td class="input"><input type="tel" name="telefone" maxlength="9"> <small>Formato: (XX) 9XXXXXXXX</small></td>
+            <td class="title"><label>Telefone:</label> <input type="text" name="ddd" id="ddd" maxlength="2" value="{{$ddd}}"> </td>
+            <td class="input"><input type="tel" name="telefone" maxlength="9" value="{{$tel}}"> <small>Formato: (XX) 9XXXXXXXX</small></td>
         </tr>
         <tr>
             <td class="title"><label>E-mail:</label></td>
-            <td><input type="text" name="email_aluno"></td>
+            <td><input type="text" name="email_aluno" value="{{$email}}"></td>
         </tr>
 
     </table>
@@ -76,7 +76,7 @@
         </tr>
     </table>
     <div id="botoes">
-    <button type="submit">Enviar Formulário</button> <button type="reset">Limpar Campos</button>
+    <button type="submit">Enviar Formulário</button> <button href="/form" type="reset">Limpar Campos</button>
     </div>
 </form>
 

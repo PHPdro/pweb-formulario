@@ -3,69 +3,100 @@
 
 @section('content')
 
-<h2>{{ $resultado_formulario }}</h2>
+@if($resultado_formulario)
+
+<h2>FORMULÁRIO PREENCHIDO COM SUCESSO!</h2>
+
+<h2>ALUNOS CADASTRADOS</h2>
+
+<table class="cadastros">
+    <tr>
+        <td style="text-align:center;">ALUNOS</td>
+    </tr>
+    <tr>
+        <td>{{ $alunos[1] }}</td>
+    </tr>
+</table>
+
+@else
+
+<h2>FORMULÁRIO NÃO PREENCHIDO CORRETAMENTE</h2>
 
 <table class="result">
     <tr>
         <td>
-            @if($nome_validado == "ESTE CAMPO É OBRIGATÓRIO." or $nome_validado == "ESTE CAMPO NÃO PODE POSSUIR NÚMEROS.")
-            <p style="color:red;">Nome do aluno: {{$nome_validado }}</p>
+            @if(is_null($nome_aluno))
+            <p class="error">Nome do aluno: {{ $erros[0] }}</p>
+            @elseif($nome_validado)
+            <p>Nome do aluno: {{ $nome_aluno }}</p>
             @else
-            <p>Nome do aluno: {{$nome_validado }}</p>
+            <p class="error">Nome do aluno: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($nascimento_validado == "ESTE CAMPO É OBRIGATÓRIO." or $nascimento_validado == "INVÁLIDO.")
-            <p style="color:red;">Nascimento: {{ $nascimento_validado }}</p>
+            @if(is_null($nascimento_aluno))
+            <p class="error">Nascimento: {{ $erros[0] }}</p>
+            @elseif($nascimento_validado)
+            <p>Nascimento: {{ $nascimento_aluno }}</p>
             @else
-            <p>Nascimento: {{ $nascimento_validado }}</p>
+            <p class="error">Nascimento: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($nome_mae_validado == "ESTE CAMPO É OBRIGATÓRIO." or $nome_mae_validado == "ESTE CAMPO NÃO PODE POSSUIR NÚMEROS.")
-            <p style="color:red;">Nome da mãe: {{$nome_mae_validado }}</p>
+            @if(is_null($nome_mae))
+            <p class="error">Nome da mãe: {{ $erros[0] }}</p>
+            @elseif($nome_mae_validado)
+            <p>Nome da mãe: {{ $nome_mae }}</p>
             @else
-            <p>Nome da mãe: {{$nome_mae_validado }}</p>
+            <p class="error">Nome da mãe: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($nome_pai_validado == "ESTE CAMPO É OBRIGATÓRIO." or $nome_pai_validado == "ESTE CAMPO NÃO PODE POSSUIR NÚMEROS.")
-            <p style="color:red;">Nome do pai: {{$nome_pai_validado }}</p>
+            @if(is_null($nome_pai))
+            <p class="error">Nome do pai {{ $erros[0] }}</p>
+            @elseif($nome_pai_validado)
+            <p>Nome do pai: {{ $nome_pai }}</p>
             @else
-            <p>Nome do pai: {{$nome_pai_validado }}</p>
+            <p class="error">Nome do pai: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($ddd_validado == "ESTE CAMPO É OBRIGATÓRIO." or $ddd_validado == "INVÁLIDO.")
-            <p style="color:red;">DDD: {{ $ddd_validado }}</p>
+            @if(is_null($ddd_aluno))
+            <p class="error">DDD: {{ $erros[0] }}</p>
+            @elseif($ddd_validado)
+            <p>DDD: {{ $ddd_aluno }}</p>
             @else
-            <p>DDD: {{ $ddd_validado }}</p>
+            <p class="error">DDD: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($telefone_validado == "ESTE CAMPO É OBRIGATÓRIO." or $telefone_validado == "INVÁLIDO.")
-            <p style="color:red;">Telefone: {{ $telefone_validado }}</p>
+            @if(is_null($telefone_aluno))
+            <p class="error">Telefone: {{ $erros[0] }}</p>
+            @elseif($telefone_validado)
+            <p>Telefone: {{ $telefone_aluno }}</p>
             @else
-            <p>Telefone: {{ $telefone_validado }}</p>
+            <p class="error">Telefone: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
     <tr>
         <td>
-            @if($email_validado == "ESTE CAMPO É OBRIGATÓRIO." or $email_validado == "INVÁLIDO.")
-            <p style="color:red;">E-mail: {{ $email_validado }}</p>
+            @if(is_null($email_aluno))
+            <p class="error">E-mail: {{ $erros[0] }}</p>
+            @elseif($email_validado)
+            <p>E-mail: {{ $email_aluno }}</p>
             @else
-            <p>E-mail: {{ $email_validado }}</p>
+            <p class="error">E-mail: {{ $erros[1] }}</p>
             @endif
         </td>
     </tr>
@@ -74,7 +105,7 @@
             @if(!empty($_POST['series']))
             <p>Turno: {{ $_POST['series'] }}</p>
             @else
-            <p style="color:red;"> ESTE CAMPO É OBRIGATÓRIO</p>
+            <p class="error"> ESTE CAMPO É OBRIGATÓRIO</p>
             @endif
         </td>
     </tr>
@@ -83,7 +114,7 @@
             @if(!empty($_POST['turno']))
             <p>Turno: {{ $_POST['turno'] }}</p>
             @else
-            <p style="color:red;">Turno: ESTE CAMPO É OBRIGATÓRIO</p>
+            <p class="error">Turno: ESTE CAMPO É OBRIGATÓRIO</p>
             @endif
         </td>
     </tr>
@@ -97,9 +128,12 @@
             @else
             <p>Nenhuma atividade foi selecionada.</p>
             @endif
-
         </td>
     </tr>
 </table>
+
+<a href='/form?nome={{$nome_aluno}}&data={{$nascimento_aluno}}&mae={{$nome_mae}}&pai={{$nome_pai}}&ddd={{$ddd_aluno}}&tel={{$telefone_aluno}}&email={{$email_aluno}}'>VOLTAR PARA O FORMULÁRIO</a>
+
+@endif
 
 @endsection

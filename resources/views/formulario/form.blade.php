@@ -13,7 +13,7 @@
     <table>
 
         <tr>
-            <th><h3>Dados Pessoais:</h3></th>
+            <th class="form"><h3>Dados Pessoais:</h3></th>
         </tr>
         <tr>
             <td class="title"><label>Nome do Aluno:</label></td>
@@ -44,7 +44,7 @@
 
     <table>
         <tr>
-            <th><h3>Informações de Matrícula:</h3></th>
+            <th class="form"><h3>Informações de Matrícula:</h3></th>
         </tr>
         <tr>
             <td>

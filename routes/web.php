@@ -13,29 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Http\Controllers\FormController;
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/form', function () {
+Route::get('/form', [FormController::class, 'index']);
 
-    $nome = request('nome');
-    $data = request('data');
-    $mae = request('mae');
-    $pai = request('pai');
-    $ddd = request('ddd');
-    $tel = request('tel');
-    $email = request('email');
-
-    return view('form', 
-    ['nome' => $nome,
-     'data' => $data,
-     'mae' => $mae,
-     'pai' => $pai,
-     'ddd' => $ddd,
-     'tel' => $tel,
-     'email' => $email
-    ]);
-});
-
-Route::post('/validacao', 'App\Http\Controllers\FormController@index');
+Route::post('/validacao', [FormController::class, 'validacao']);

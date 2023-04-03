@@ -11,6 +11,26 @@ class FormController extends Controller {
     private static $alunos_cadastrados = array();
 
     public function index() {
+        $nome = request('nome');
+        $data = request('data');
+        $mae = request('mae');
+        $pai = request('pai');
+        $ddd = request('ddd');
+        $tel = request('tel');
+        $email = request('email');
+
+        return view('formulario.form', 
+        ['nome' => $nome,
+        'data' => $data,
+        'mae' => $mae,
+        'pai' => $pai,
+        'ddd' => $ddd,
+        'tel' => $tel,
+        'email' => $email
+        ]);
+    }
+
+    public function validacao() {
 
         // PEGANDO OS DADOS PREENCHIDOS
 
@@ -22,9 +42,31 @@ class FormController extends Controller {
         $telefone_aluno= request()->input('telefone');
         $email_aluno = request()->input('email_aluno');
 
+        if(!empty($_POST['turno'])) {
+            $turno = $_POST['turno'];
+        } else {
+            self::$contador_erros += 1;
+            $turno = null;
+        }
+
+        if(!empty($_POST['series'])) {
+            $serie = $_POST['series'];
+        } else {
+            self::$contador_erros += 1;
+            $serie = null;
+        }
+
+        $atividades = array();
+
+        if(!empty($_POST['extra'])) {
+            foreach($_POST['extra'] as $selecionadas) {
+                array_push($atividades, $selecionadas);
+            }
+        }
+
         // VALIDANDO OS CAMPOS
 
-        $erros = array("ESTE CAMPO É OBRIGATÓRIO", "INVÁLIDO");
+        $erros = array("ESTE CAMPO É OBRIGATÓRIO.", "INVÁLIDO.");
 
         $nome_validado = self::validar_nomes($nome_aluno);
         $nome_mae_validado = self::validar_nomes($nome_mae);
@@ -38,21 +80,22 @@ class FormController extends Controller {
 
         if($resultado_formulario) {
 
-            self::inserir_dados($nome_aluno, $nascimento_aluno, $nome_mae, $nome_pai, $ddd_aluno, $telefone_aluno, $email_aluno);
+            $telefone_completo = '('.$ddd_aluno.')'.' '.$telefone_aluno;
+
+            self::inserir_dados($nome_aluno, $nascimento_aluno, $nome_mae, $nome_pai, $telefone_completo, $email_aluno, $serie, $turno);
 
             $alunos = DB::table('alunos')->select(DB::raw('*'))->get();
             foreach($alunos as $aluno) {
-                foreach($aluno as $i) {
-                    array_push(self::$alunos_cadastrados, $i);
-                }   
+                array_push(self::$alunos_cadastrados, $aluno);
             }
+            $alunos = self::$alunos_cadastrados;
 
-        }
+            return view('formulario.alunos', compact('resultado_formulario','alunos'));
+            
+        } else {
 
-        $alunos = self::$alunos_cadastrados;
-
-        return view('validacao', 
-        compact('nome_validado',
+            return view('formulario.erro', 
+            compact('nome_validado',
                 'nascimento_validado',
                 'nome_mae_validado',
                 'nome_pai_validado',
@@ -67,9 +110,12 @@ class FormController extends Controller {
                 'ddd_aluno',
                 'telefone_aluno',
                 'email_aluno',
-                'erros',
-                'alunos'
-             ));
+                'serie',
+                'turno',
+                'atividades',
+                'erros'
+            ));
+        }
     }
 
     public function validar_nomes($nome) {
@@ -136,7 +182,6 @@ class FormController extends Controller {
                 return false;
             }
         }
-
     }
 
     public function validar_telefone($telefone) {
@@ -158,7 +203,6 @@ class FormController extends Controller {
             self::$contador_erros += 1;
             return false;
         } else {
-
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 return true;
             } else {
@@ -177,16 +221,17 @@ class FormController extends Controller {
         }
     }
 
-    public function inserir_dados($nome, $data, $mae, $pai, $ddd, $tel, $email) {
+    public function inserir_dados($nome, $data, $mae, $pai, $tel, $email, $serie, $turno) {
 
         DB::table('alunos') -> insert([
             'nome_aluno' => $nome,
             'nascimento' => $data,
             'nome_mae' => $mae,
             'nome_pai' => $pai,
-            'ddd' => $ddd,
             'telefone' => $tel,
-            'email' => $email       
+            'email' => $email,
+            'serie' => $serie,
+            'turno' => $turno    
         ]);
     }
 }

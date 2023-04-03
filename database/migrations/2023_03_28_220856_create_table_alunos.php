@@ -17,12 +17,10 @@ return new class extends Migration
             $table->date('nascimento');
             $table->string('nome_mae');
             $table->string('nome_pai');
-            $table->string('ddd');
             $table->string('telefone');
             $table->string('email');
-            // $table->string('serie');
-            // $table->string('turno');
-            //$table->timestamps();
+            $table->string('serie');
+            $table->string('turno');
         });
     }
 

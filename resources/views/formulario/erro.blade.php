@@ -3,23 +3,6 @@
 
 @section('content')
 
-@if($resultado_formulario)
-
-<h2>FORMULÁRIO PREENCHIDO COM SUCESSO!</h2>
-
-<h2>ALUNOS CADASTRADOS</h2>
-
-<table class="cadastros">
-    <tr>
-        <td style="text-align:center;">ALUNOS</td>
-    </tr>
-    <tr>
-        <td>{{ $alunos[1] }}</td>
-    </tr>
-</table>
-
-@else
-
 <h2>FORMULÁRIO NÃO PREENCHIDO CORRETAMENTE</h2>
 
 <table class="result">
@@ -102,10 +85,10 @@
     </tr>
     <tr>
         <td>
-            @if(!empty($_POST['series']))
-            <p>Turno: {{ $_POST['series'] }}</p>
+            @if(is_null($serie))
+            <p class="error">Série: {{ $erros[0] }}</p>
             @else
-            <p class="error"> ESTE CAMPO É OBRIGATÓRIO</p>
+            <p>Série: {{ $serie }}</p>
             @endif
         </td>
     </tr>
@@ -133,7 +116,5 @@
 </table>
 
 <a href='/form?nome={{$nome_aluno}}&data={{$nascimento_aluno}}&mae={{$nome_mae}}&pai={{$nome_pai}}&ddd={{$ddd_aluno}}&tel={{$telefone_aluno}}&email={{$email_aluno}}'>VOLTAR PARA O FORMULÁRIO</a>
-
-@endif
 
 @endsection
